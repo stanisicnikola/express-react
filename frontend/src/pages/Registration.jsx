@@ -31,14 +31,14 @@ const Registration = () => {
           <label>Username:</label>
           <ErrorMessage name="username" component="span" />
           <Field
-            id="inputCreatePost"
+            id="inputRegistration"
             name="username"
             placeholder="(Ex. John123...)"
           ></Field>
           <label>Password:</label>
           <ErrorMessage name="password" component="span" />
           <Field
-            id="inputCreatePost"
+            id="inputRegistration"
             type="password"
             name="password"
             placeholder="(Ex. password123...)"

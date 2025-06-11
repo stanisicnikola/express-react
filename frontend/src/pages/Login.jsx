@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import "../App.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -13,13 +14,15 @@ const Login = () => {
     });
   };
   return (
-    <div>
+    <div className="loginContainer">
+      <label>Username:</label>
       <input
         type="text"
         onChange={(event) => {
           setUsername(event.target.value);
         }}
       />
+      <label>Password:</label>
       <input
         type="password"
         onChange={(event) => {
