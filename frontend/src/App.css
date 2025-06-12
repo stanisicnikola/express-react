@@ -115,6 +115,20 @@ span {
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
 }
+ .leftSideNavbar {
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+ .rightSideNavbar {
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 
 .navbar a {
   margin-left: 20px;
