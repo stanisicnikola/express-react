@@ -1,13 +1,16 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "../App.css";
+import { AuthContext } from "../helpers/authContext";
 
 const Post = () => {
   let { id } = useParams();
   const [individualPost, setIndividualPost] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const { authState } = useContext(AuthContext);
+
   useEffect(() => {
     axios.get(`http://localhost:3000/posts/${id}`).then((response) => {
       setIndividualPost(response.data);
@@ -38,12 +41,28 @@ const Post = () => {
           const commentToAdd = {
             commentBody: newComment,
             username: response.data.username,
+            id: response.data.id,
           };
           setComments([...comments, commentToAdd]);
           setNewComment("");
         }
       });
   };
+
+  const deleteComment = (id) => {
+    axios
+      .delete(`http://localhost:3000/comments/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        setComments(
+          comments.filter((value) => {
+            return value.id != id;
+          })
+        );
+      });
+  };
+
   return (
     <div className="postPage">
       <div className="leftSide">
@@ -69,8 +88,20 @@ const Post = () => {
           {comments.map((value, key) => {
             return (
               <div key={key} className="comment">
-                {value.commentBody}
-                <label> Username: {value.username}</label>
+                <div className="comment-header">
+                  <span className="comment-username">
+                    Added by: {value.username}
+                  </span>
+                  {authState.username === value.username && (
+                    <button
+                      className="deleteButton"
+                      onClick={() => deleteComment(value.id)}
+                    >
+                      X
+                    </button>
+                  )}
+                </div>
+                <div className="comment-body">{value.commentBody}</div>
               </div>
             );
           })}

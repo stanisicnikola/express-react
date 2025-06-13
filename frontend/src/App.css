@@ -134,6 +134,25 @@ span {
   margin-left: 20px;
   text-decoration: none;
   color: white;
+  font-weight: bold;
+}
+.navbar button{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+  background-color: red;
+  border: 1px solid white;
+  border-color: white;
+  color:white;
+  font-weight: bold;
+  font-size: 15px;
+
+}
+.navbar h1 {
+  margin-right: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
 }
 
 /* INDIVIDUAL POST */
@@ -198,11 +217,47 @@ button {
 
 .listOfComments .comment {
   width: 70%;
-  height: auto;
-  padding: 30px;
+  padding: 10px;
   border: 1px solid lightgray;
   border-radius: 5px;
   margin-top: 20px;
+  position: relative;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.comment-username {
+  font-weight: bold;
+  margin-right: 10px;
+  color: dodgerblue;
+}
+
+.comment-body {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.deleteButton{
+  color: red;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  border: 1px solid red;
+  border-radius: 8px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 #individual {
