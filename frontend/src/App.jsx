@@ -68,8 +68,12 @@ function App() {
 
           {!authState.status ? (
             <div className="rightSideNavbar">
-              <Link to="/registration">Registration</Link>
-              <Link to="/login">Login</Link>
+              <Link className="nabarRegistration" to="/registration">
+                Registration
+              </Link>
+              <Link className="nabarLogin" to="/login">
+                Login
+              </Link>
             </div>
           ) : (
             <div className="rightSideNavbar">

@@ -52,11 +52,11 @@ router.put("/user/update/:id", async (req, res) => {
   const id = req.params.id;
   const { password } = req.body;
   const user = await Users.findByPk(id);
-  // const hash = bcrypt.hash(password, 10);
-  // console.log(hash);
-  // user.password = hash;
-  user.password = password;
-  await user.save();
+  bcrypt.hash(password, 10).then( (hash) => {
+     user.update({
+      password: hash,
+    });
+  });
   res.json("Password successfully updated!");
 });
 

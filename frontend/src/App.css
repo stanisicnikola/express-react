@@ -56,13 +56,14 @@ body {
   border-bottom-right-radius: 10px;
 }
 .deletePostButton{
+  margin-top: 4px;
   cursor: pointer;
   height: 40px;
   width: 100px;
   color: white;
   background-color: red;
   font-weight: bold;
-  border: 1px solid black;
+  border: 1px solid lightpink;
 }
 
 /* CREATE POST PAGE CSS */
@@ -130,6 +131,16 @@ span {
   display: flex;
   align-items: center;
 }
+.leftSideNavbar a{
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.leftSideNavbar a:hover{
+  color: lightpink;
+  border-color: lightpink;
+}
 
  .rightSideNavbar {
   flex: 50%;
@@ -137,6 +148,17 @@ span {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-right: 20px;
+}
+.nabarRegistration, .nabarLogin{
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.nabarRegistration:hover, .nabarLogin:hover{
+  color: lightpink;
+  border-color: lightpink;
 }
 
 .navbar a {
@@ -145,10 +167,12 @@ span {
   color: white;
   font-weight: bold;
 }
+
 .navbar button{
   width: 100px;
   height: 30px;
   cursor: pointer;
+  border-radius: 4px;
   background-color: red;
   border: 1px solid white;
   border-color: white;
@@ -164,7 +188,7 @@ span {
   font-size: 17px;
 }
 .navbarUsername:hover{
-  color: lightpink;
+  color:lightpink;
   font-size: 19px;
   margin-right: 8px;
 }

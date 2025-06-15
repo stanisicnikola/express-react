@@ -8,9 +8,7 @@ const User = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/auth/user/${id}`).then((response) => {
-      console.log(response.data);
-    });
+    axios.get(`http://localhost:3000/auth/user/${id}`);
   }, []);
 
   const updatePassword = (password) => {
