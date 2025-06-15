@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
@@ -69,8 +75,24 @@ function App() {
             <Route path="/" exact element={<Home />} />
             <Route path="/createpost" exact element={<CreatePost />} />
             <Route path="/posts/:id" exact element={<Post />} />
-            <Route path="/login" exact element={<Login />} />
-            <Route path="/registration" exact element={<Registration />} />
+            <Route
+              path="/login"
+              exact
+              element={
+                !authState.status ? <Login /> : <Navigate to="/" replace />
+              }
+            />
+            <Route
+              path="/registration"
+              exact
+              element={
+                !authState.status ? (
+                  <Registration />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              }
+            />
           </Routes>
         </Router>
       </AuthContext.Provider>
