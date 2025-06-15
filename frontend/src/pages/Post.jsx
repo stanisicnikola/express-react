@@ -69,7 +69,7 @@ const Post = () => {
         <div className="post" id="individual">
           <div className="title">{individualPost.title}</div>
           <div className="body">{individualPost.postText}</div>
-          <div className="footer">{individualPost.username}</div>
+          <div className="footer">@{individualPost.username}</div>
         </div>
       </div>
       <div className="rightSide">
@@ -88,10 +88,11 @@ const Post = () => {
           {comments.map((value, key) => {
             return (
               <div key={key} className="comment">
-                <div className="comment-header">
-                  <span className="comment-username">
-                    Added by: {value.username}
-                  </span>
+                <div className="commentHeader">
+                  <div>
+                    <label>Added by: </label>
+                    <span className="commentUsername">@{value.username}</span>
+                  </div>
                   {authState.username === value.username && (
                     <button
                       className="deleteButton"
@@ -101,7 +102,7 @@ const Post = () => {
                     </button>
                   )}
                 </div>
-                <div className="comment-body">{value.commentBody}</div>
+                <div className="commentBody">{value.commentBody}</div>
               </div>
             );
           })}

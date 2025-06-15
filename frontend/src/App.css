@@ -236,20 +236,20 @@ button {
   flex-direction: column;
 }
 
-.comment-header {
+.commentHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 10px;
 }
 
-.comment-username {
+.commentUsername{
   font-weight: bold;
   margin-right: 10px;
   color: dodgerblue;
 }
 
-.comment-body {
+.commentBody {
   font-size: 1.2em;
   margin-top: 10px;
 }
@@ -312,4 +312,20 @@ button {
   border: none;
   margin: 10px;
   border: 2px solid dodgerblue;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid dodgerblue;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 100px auto;
+  display: block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

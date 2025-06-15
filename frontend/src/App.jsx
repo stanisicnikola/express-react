@@ -21,6 +21,7 @@ function App() {
     id: 0,
     status: false,
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -37,8 +38,11 @@ function App() {
             status: true,
           });
         }
+        setLoading(false);
       });
   }, []);
+
+  if (loading) return <div className="spinner"></div>;
 
   const logout = () => {
     localStorage.removeItem("accessToken");
@@ -66,7 +70,7 @@ function App() {
               </div>
             ) : (
               <div className="rightSideNavbar">
-                <h1>{authState.username}</h1>
+                <h1>@{authState.username}</h1>
                 <button onClick={logout}>Logout</button>
               </div>
             )}
