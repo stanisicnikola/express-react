@@ -4,6 +4,7 @@ import {
   Route,
   Link,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
@@ -11,6 +12,7 @@ import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
+import User from "./pages/User";
 import { AuthContext } from "./helpers/authContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -22,6 +24,7 @@ function App() {
     status: false,
   });
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -51,54 +54,52 @@ function App() {
       id: 0,
       status: false,
     });
+    navigate("/login");
   };
 
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
-        <Router>
-          <div className="navbar">
-            <div className="leftSideNavbar">
-              <Link to="/createpost">Create Post</Link>
-              <Link to="/">Home Page</Link>
-            </div>
-
-            {!authState.status ? (
-              <div className="rightSideNavbar">
-                <Link to="/registration">Registration</Link>
-                <Link to="/login">Login</Link>
-              </div>
-            ) : (
-              <div className="rightSideNavbar">
-                <h1>@{authState.username}</h1>
-                <button onClick={logout}>Logout</button>
-              </div>
-            )}
+        <div className="navbar">
+          <div className="leftSideNavbar">
+            <Link to="/createpost">Create Post</Link>
+            <Link to="/">Home Page</Link>
           </div>
-          <Routes>
-            <Route path="/" exact element={<Home />} />
-            <Route path="/createpost" exact element={<CreatePost />} />
-            <Route path="/posts/:id" exact element={<Post />} />
-            <Route
-              path="/login"
-              exact
-              element={
-                !authState.status ? <Login /> : <Navigate to="/" replace />
-              }
-            />
-            <Route
-              path="/registration"
-              exact
-              element={
-                !authState.status ? (
-                  <Registration />
-                ) : (
-                  <Navigate to="/" replace />
-                )
-              }
-            />
-          </Routes>
-        </Router>
+
+          {!authState.status ? (
+            <div className="rightSideNavbar">
+              <Link to="/registration">Registration</Link>
+              <Link to="/login">Login</Link>
+            </div>
+          ) : (
+            <div className="rightSideNavbar">
+              <Link to={`/user/${authState.id}`} className="navbarUsername">
+                @{authState.username}
+              </Link>
+              <button onClick={logout}>Logout</button>
+            </div>
+          )}
+        </div>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/createpost" exact element={<CreatePost />} />
+          <Route path="/posts/:id" exact element={<Post />} />
+          <Route
+            path="/login"
+            exact
+            element={
+              !authState.status ? <Login /> : <Navigate to="/" replace />
+            }
+          />
+          <Route
+            path="/registration"
+            exact
+            element={
+              !authState.status ? <Registration /> : <Navigate to="/" replace />
+            }
+          />
+          <Route path="/user/:id" exact element={<User />} />
+        </Routes>
       </AuthContext.Provider>
     </div>
   );

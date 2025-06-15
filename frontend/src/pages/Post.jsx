@@ -13,9 +13,11 @@ const Post = () => {
 
   useEffect(() => {
     axios.get(`http://localhost:3000/posts/${id}`).then((response) => {
+      console.log(response.data);
       setIndividualPost(response.data);
     });
     axios.get(`http://localhost:3000/comments/${id}`).then((response) => {
+      console.log(response.data);
       setComments(response.data);
     });
   }, []);

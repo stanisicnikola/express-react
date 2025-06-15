@@ -157,11 +157,16 @@ span {
   font-size: 15px;
 
 }
-.navbar h1 {
+.navbarUsername {
   margin-right: 10px;
   color: white;
   font-weight: bold;
   font-size: 17px;
+}
+.navbarUsername:hover{
+  color: lightpink;
+  font-size: 19px;
+  margin-right: 8px;
 }
 
 /* INDIVIDUAL POST */
