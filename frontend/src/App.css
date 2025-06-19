@@ -27,7 +27,7 @@ body {
 
 .post:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  cursor: pointer;
+  
 }
 .post .title {
   flex: 20%;
@@ -42,6 +42,10 @@ body {
   flex: 60%;
   display: grid;
   place-content: center;
+}
+
+.post .body:hover{
+  cursor: pointer;
 }
 
 .post .footer {
@@ -226,13 +230,13 @@ span {
 }
 
 .addCommentContainer input,
-button {
- 
+.addCommentButton {
   border-radius: 8px;
   border: none;
+  margin-top: 10px;
 }
 
-.addCommentContainer button {
+.addCommentButton{
   background-color: dodgerblue;
   color: white;
   width: 200px;

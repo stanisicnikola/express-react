@@ -31,20 +31,59 @@ const Home = () => {
       });
   };
 
+  const likeAPost = (postId) => {
+    axios
+      .post(
+        "http://localhost:3000/likes",
+        { PostId: postId },
+        {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }
+      )
+      .then((response) => {
+        setListOfPosts(
+          listOfPosts.map((post) => {
+            if (post.id === postId) {
+              return {
+                ...post,
+                likeCount: response.data.liked
+                  ? post.likeCount + 1
+                  : post.likeCount - 1,
+              };
+            } else {
+              return post;
+            }
+          })
+        );
+      });
+  };
+
   return (
     <div>
       {listOfPosts.map((value, key) => {
         return (
           <div key={key}>
-            <div
-              className="post"
-              onClick={() => {
-                navigate(`/posts/${value.id}`);
-              }}
-            >
+            <div className="post">
               <div className="title"> {value.title} </div>
-              <div className="body"> {value.postText}</div>
-              <div className="footer"> @{value.username}</div>
+              <div
+                onClick={() => {
+                  navigate(`/posts/${value.id}`);
+                }}
+                className="body"
+              >
+                {value.postText}
+              </div>
+              <div className="footer">
+                @{value.username}{" "}
+                <button
+                  onClick={() => {
+                    likeAPost(value.id);
+                  }}
+                >
+                  Like
+                </button>
+                <label>{value.likeCount}</label>
+              </div>
             </div>
             {authState.username === value.username && (
               <button
