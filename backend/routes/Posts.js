@@ -3,7 +3,7 @@ const router = express.Router();
 const { Posts, Likes, Sequelize } = require("../models");
 const { validateToken } = require("../middlewares/authMiddleware");
 
-router.get("/", async (req, res) => {
+router.get("/", validateToken, async (req, res) => {
   const listOfPosts = await Posts.findAll({
     attributes: {
       include: [
@@ -16,7 +16,8 @@ router.get("/", async (req, res) => {
       ],
     },
   });
-  res.json(listOfPosts);
+  const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
+  res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts });
 });
 
 router.get("/:id", async (req, res) => {

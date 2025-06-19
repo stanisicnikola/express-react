@@ -4,17 +4,32 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { AuthContext } from "../helpers/authContext";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Home = () => {
   const [listOfPosts, setListOfPosts] = useState([]);
+  const [listOfLikedPosts, setListOfLikedPosts] = useState([]);
   let navigate = useNavigate();
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/posts").then((response) => {
-      const posts = response.data;
-      setListOfPosts(posts);
-    });
+    if (!authState.status) {
+      navigate("/login");
+    }
+    axios
+      .get("http://localhost:3000/posts", {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        const posts = response.data.listOfPosts;
+        setListOfPosts(posts);
+        const likedPosts = response.data.likedPosts;
+        setListOfLikedPosts(
+          likedPosts.map((like) => {
+            return like.PostId;
+          })
+        );
+      });
   }, []);
 
   const deletePost = (id) => {
@@ -55,6 +70,15 @@ const Home = () => {
             }
           })
         );
+        if (listOfLikedPosts.includes(postId)) {
+          setListOfLikedPosts(
+            listOfLikedPosts.filter((id) => {
+              return id != postId;
+            })
+          );
+        } else {
+          setListOfLikedPosts([...listOfLikedPosts, postId]);
+        }
       });
   };
 
@@ -74,15 +98,22 @@ const Home = () => {
                 {value.postText}
               </div>
               <div className="footer">
-                @{value.username}{" "}
-                <button
-                  onClick={() => {
-                    likeAPost(value.id);
-                  }}
-                >
-                  Like
-                </button>
-                <label>{value.likeCount}</label>
+                <div className="footerContent">
+                  <div>@{value.username}</div>
+                  <div>
+                    <FavoriteIcon
+                      onClick={() => {
+                        likeAPost(value.id);
+                      }}
+                      className={
+                        listOfLikedPosts.includes(value.id)
+                          ? "unlikeBtnn"
+                          : "likeBtnn"
+                      }
+                    />
+                    <label>{value.likeCount}</label>
+                  </div>
+                </div>
               </div>
             </div>
             {authState.username === value.username && (
