@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import { AuthContext } from "../helpers/authContext";
 
 const CreatePost = () => {
+  const { authState } = useContext(AuthContext);
   let navigate = useNavigate();
   const initialValues = {
     title: "",
     postText: "",
   };
 
+  useEffect(() => {
+    if (!authState.status) {
+      navigate("/login");
+    }
+  }, []);
   const validationSchema = Yup.object().shape({
     title: Yup.string().required(),
     postText: Yup.string().required(),

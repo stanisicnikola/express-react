@@ -44,7 +44,9 @@ router.get("/validation", validateToken, (req, res) => {
 
 router.get("/user/:id", async (req, res) => {
   const id = req.params.id;
-  const user = await Users.findByPk(id);
+  const user = await Users.findByPk(id, {
+    attributes: { exclude: ["password"] },
+  });
   res.json(user);
 });
 
@@ -52,8 +54,8 @@ router.put("/user/update/:id", async (req, res) => {
   const id = req.params.id;
   const { password } = req.body;
   const user = await Users.findByPk(id);
-  bcrypt.hash(password, 10).then( (hash) => {
-     user.update({
+  bcrypt.hash(password, 10).then((hash) => {
+    user.update({
       password: hash,
     });
   });
